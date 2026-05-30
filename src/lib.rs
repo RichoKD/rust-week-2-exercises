@@ -2,26 +2,43 @@ use hex::{decode, encode};
 
 pub fn decode_hex(hex_str: &str) -> Result<Vec<u8>, String> {
     // TODO: Decode hex string into Vec<u8>, return error string on failure
+    decode(hex_str).map_err(|e| e.to_string())
 }
 
 pub fn to_big_endian(bytes: &[u8]) -> Vec<u8> {
     // TODO: Reverse the byte order of input slice and return as Vec<u8>
+    let reversed: Vec<u8> = bytes.iter().rev().copied().collect();
+    reversed
 }
 
 pub fn bytes_to_hex(bytes: &[u8]) -> String {
     // TODO: Implement conversion of bytes slice to hex string
+    encode(bytes)
 }
 
 pub fn hex_to_bytes(hex: &str) -> Result<Vec<u8>, hex::FromHexError> {
     // TODO: Implement conversion of hex string to bytes vector
+    decode(hex)
 }
 
 pub fn swap_endian_u32(num: u32) -> [u8; 4] {
     // TODO: Implement little-endian byte swap for u32
+    let bytes = num.to_le_bytes();
+    let mut byte_array: [u8; 4] = [0; 4];
+
+    for i in 0..4 {
+        byte_array[i] = bytes[i];
+    }
+    byte_array
 }
 
 pub fn parse_satoshis(input: &str) -> Result<u64, String> {
     // TODO: Parse input string to u64, return error string if invalid
+    if let Ok(num) = input.parse::<u64>() {
+        Ok(num)
+    } else {
+        Err("Invalid satoshi amount".to_string())
+    }
 }
 
 pub enum ScriptType {
@@ -32,13 +49,19 @@ pub enum ScriptType {
 
 pub fn classify_script(script: &[u8]) -> ScriptType {
     // TODO: Match script pattern and return corresponding ScriptType
+    match script {
+        [0x76, 0xa9, 0x14] => ScriptType::P2PKH,
+        [0x00, 0x14, 0xff] => ScriptType::P2WPKH,
+        _ => ScriptType::Unknown,
+    }
 }
 
 // TODO: complete Outpoint tuple struct
-pub struct Outpoint();
+pub struct Outpoint(pub String, pub u32);
 
 pub fn read_pushdata(script: &[u8]) -> &[u8] {
     // TODO: Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
+    todo!();
 }
 
 pub trait Wallet {
@@ -52,15 +75,18 @@ pub struct TestWallet {
 impl Wallet for TestWallet {
     fn balance(&self) -> u64 {
         // TODO: Return the wallet's confirmed balance
+        todo!();
     }
 }
 
 pub fn apply_fee(balance: &mut u64, fee: u64) {
     // TODO: Subtract fee from mutable balance reference
+    todo!();
 }
 
 pub fn move_txid(txid: String) -> String {
     // TODO: Return formatted string including the txid for display or logging
+    todo!();
 }
 
 // TODO: Add necessary derive traits
@@ -73,6 +99,7 @@ pub enum Opcode {
 impl Opcode {
     pub fn from_byte(byte: u8) -> Result<Self, String> {
         // TODO: Implement mapping from byte to Opcode variant
+        todo!();
     }
 }
 
@@ -85,4 +112,11 @@ pub struct UTXO {
 
 pub fn consume_utxo(utxo: UTXO) -> UTXO {
     // TODO: Implement UTXO consumption logic (if any)
+    todo!();
 }
+
+// #[main]
+// fn main() {
+//     let result = to_big_endian(&[1, 2, 3, 4, 5, 6, 7, 8]);
+//     println!("{:?}", result);
+// }

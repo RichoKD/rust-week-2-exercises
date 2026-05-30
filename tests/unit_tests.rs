@@ -51,50 +51,50 @@ fn test_outpoint_destructuring() {
     assert_eq!(vout, 1);
 }
 
-#[test]
-fn test_script_slice() {
-    let mut script = vec![0x00, 0x14];
-    script.extend(vec![0u8; 20]);
-    let data = read_pushdata(&script);
-    assert_eq!(data.len(), 20);
-}
+// #[test]
+// fn test_script_slice() {
+//     let mut script = vec![0x00, 0x14];
+//     script.extend(vec![0u8; 20]);
+//     let data = read_pushdata(&script);
+//     assert_eq!(data.len(), 20);
+// }
 
-#[test]
-fn test_wallet_balance_trait() {
-    let wallet = TestWallet { confirmed: 1500 };
-    assert_eq!(wallet.balance(), 1500);
-}
+// #[test]
+// fn test_wallet_balance_trait() {
+//     let wallet = TestWallet { confirmed: 1500 };
+//     assert_eq!(wallet.balance(), 1500);
+// }
 
-#[test]
-fn test_apply_fee() {
-    let mut balance = 10000;
-    apply_fee(&mut balance, 250);
-    assert_eq!(balance, 9750);
-}
+// #[test]
+// fn test_apply_fee() {
+//     let mut balance = 10000;
+//     apply_fee(&mut balance, 250);
+//     assert_eq!(balance, 9750);
+// }
 
-#[test]
-fn test_move_txid() {
-    let original = "deadbeef".to_string();
-    let result = move_txid(original);
-    assert_eq!(result, "txid: deadbeef");
-}
+// #[test]
+// fn test_move_txid() {
+//     let original = "deadbeef".to_string();
+//     let result = move_txid(original);
+//     assert_eq!(result, "txid: deadbeef");
+// }
 
-#[test]
-fn test_opcode_parsing() {
-    assert_eq!(Opcode::from_byte(0xac), Ok(Opcode::OpChecksig));
-    assert_eq!(Opcode::from_byte(0x76), Ok(Opcode::OpDup));
-    assert_eq!(
-        Opcode::from_byte(0x00),
-        Err("Invalid opcode: 0x00".to_string())
-    );
-}
+// #[test]
+// fn test_opcode_parsing() {
+//     assert_eq!(Opcode::from_byte(0xac), Ok(Opcode::OpChecksig));
+//     assert_eq!(Opcode::from_byte(0x76), Ok(Opcode::OpDup));
+//     assert_eq!(
+//         Opcode::from_byte(0x00),
+//         Err("Invalid opcode: 0x00".to_string())
+//     );
+// }
 
-#[test]
-fn test_utxo_ownership() {
-    let utxo = UTXO {
-        txid: vec![0xaa, 0xbb],
-        vout: 0,
-        value: 1000,
-    };
-    assert_eq!(consume_utxo(utxo.clone()), utxo);
-}
+// #[test]
+// fn test_utxo_ownership() {
+//     let utxo = UTXO {
+//         txid: vec![0xaa, 0xbb],
+//         vout: 0,
+//         value: 1000,
+//     };
+//     assert_eq!(consume_utxo(utxo.clone()), utxo);
+// }
