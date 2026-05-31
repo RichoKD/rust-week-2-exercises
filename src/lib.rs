@@ -26,9 +26,7 @@ pub fn swap_endian_u32(num: u32) -> [u8; 4] {
     let bytes = num.to_le_bytes();
     let mut byte_array: [u8; 4] = [0; 4];
 
-    for i in 0..4 {
-        byte_array[i] = bytes[i];
-    }
+    byte_array.copy_from_slice(&bytes);
     byte_array
 }
 
@@ -81,7 +79,7 @@ impl Wallet for TestWallet {
 
 pub fn apply_fee(balance: &mut u64, fee: u64) {
     // TODO: Subtract fee from mutable balance reference
-    *balance = *balance - fee;
+    *balance -= fee;
 }
 
 pub fn move_txid(txid: String) -> String {
