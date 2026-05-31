@@ -61,7 +61,7 @@ pub struct Outpoint(pub String, pub u32);
 
 pub fn read_pushdata(script: &[u8]) -> &[u8] {
     // TODO: Return the pushdata portion of the script slice (assumes pushdata starts at index 2)
-    todo!();
+    &script[2..]
 }
 
 pub trait Wallet {
@@ -75,18 +75,18 @@ pub struct TestWallet {
 impl Wallet for TestWallet {
     fn balance(&self) -> u64 {
         // TODO: Return the wallet's confirmed balance
-        todo!();
+        self.confirmed
     }
 }
 
 pub fn apply_fee(balance: &mut u64, fee: u64) {
     // TODO: Subtract fee from mutable balance reference
-    todo!();
+    *balance = *balance - fee;
 }
 
 pub fn move_txid(txid: String) -> String {
     // TODO: Return formatted string including the txid for display or logging
-    todo!();
+    format!("txid: {}", txid)
 }
 
 // TODO: Add necessary derive traits
@@ -114,9 +114,3 @@ pub fn consume_utxo(utxo: UTXO) -> UTXO {
     // TODO: Implement UTXO consumption logic (if any)
     todo!();
 }
-
-// #[main]
-// fn main() {
-//     let result = to_big_endian(&[1, 2, 3, 4, 5, 6, 7, 8]);
-//     println!("{:?}", result);
-// }
