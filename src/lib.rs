@@ -23,11 +23,7 @@ pub fn hex_to_bytes(hex: &str) -> Result<Vec<u8>, hex::FromHexError> {
 
 pub fn swap_endian_u32(num: u32) -> [u8; 4] {
     // TODO: Implement little-endian byte swap for u32
-    let bytes = num.to_le_bytes();
-    let mut byte_array: [u8; 4] = [0; 4];
-
-    byte_array.copy_from_slice(&bytes);
-    byte_array
+    num.to_le_bytes()
 }
 
 pub fn parse_satoshis(input: &str) -> Result<u64, String> {
